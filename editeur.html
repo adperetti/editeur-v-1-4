@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur de captures d'écran</title>
+    <title>Générateur de captures d'écran V1.4</title>
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <style>
         body {
@@ -2607,14 +2607,14 @@ htKPYRiGYRhTDKUfwzAMwxg/lH6mlFH4/xkb0c04pxyvAAAAAElFTkSuQmCC
     <text
        xml:space="preserve"
        style="text-transform:uppercase;font-style:normal;font-weight:normal;font-size:2.46944px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583"
-       x="-1.9183666"
+       x="-3.9183666"
        y="29.394638"
        id="text209"
        inkscape:export-xdpi="164"
        inkscape:export-ydpi="164"><tspan
          sodipodi:role="line"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:2.46944px;font-family:sans-serif;-inkscape-font-specification:sans-serif;stroke-width:0.264583"
-         x="-1.9183666"
+         x="-4.84"
          y="29.394638"
          id="tspan174">BOSC0986424860</tspan></text>
     <!--REFERENCE APPEL 1-->
@@ -2629,7 +2629,7 @@ htKPYRiGYRhTDKUfwzAMwxg/lH6mlFH4/xkb0c04pxyvAAAAAElFTkSuQmCC
        inkscape:export-filename="C:\Users\User\Desktop\captures CDC\PGOPIC050TL.png"><tspan
          sodipodi:role="line"
          style="font-size:2.46944px;line-height:3.0868px;stroke-width:0.264583"
-         x="-5.5176225"
+         x="-4.84"
          y="40.458851"
          id="tspan161">0986424860</tspan></text>
     <!--LIBELLE-->
@@ -2644,7 +2644,7 @@ htKPYRiGYRhTDKUfwzAMwxg/lH6mlFH4/xkb0c04pxyvAAAAAElFTkSuQmCC
        inkscape:export-filename="C:\Users\User\Desktop\captures CDC\text209-7.png"><tspan
          sodipodi:role="line"
          style="font-size:2.46944px;stroke-width:0.264583"
-         x="34.023865"
+         x="34.8"
          y="29.354023"
          id="tspan167">PLAQ FREIN BP2482</tspan><tspan
          sodipodi:role="line"
@@ -4330,9 +4330,11 @@ if (dateField.value.trim() === '') {
     document.getElementById('tspan207-0-7').textContent = document.getElementById('editableField6').value;
     document.getElementById('tspan207-4-1-0-5-6-9-2-3-3-1-7').textContent = document.getElementById('editableField6').value;
 
+
     // Récupérer les valeurs saisies dans les champs
     var marqueInput = document.getElementById('editableField2').value.trim().toUpperCase();
     var referenceAppel1Input = document.getElementById('editableField1').value.trim();
+
 
     // Mettre à jour les tspans avec les valeurs des champs correspondants
     document.getElementById('tspan207-3').textContent = marqueInput;
@@ -4341,6 +4343,17 @@ if (dateField.value.trim() === '') {
 
     // Mettre à jour tspan174 avec les 4 premiers caractères de la marque + la référence d'appel 1
     document.getElementById('tspan174').textContent = marqueInput.substring(0, 4) + referenceAppel1Input;
+
+
+    // Concaténer la marque et la référence d'appel
+    var concatValue = marqueInput.substring(0, 4) + referenceAppel1Input;
+
+    // Limiter la longueur à 16 caractères
+    var tspan174Value = concatValue.substring(0, 16);
+
+    // Mettre à jour tspan174 avec les 16 premiers caractères de la concaténation
+    document.getElementById('tspan174').textContent = tspan174Value;
+
 
     // ... (mettre à jour les autres tspans avec d'autres champs si nécessaire)
 
@@ -4360,11 +4373,6 @@ if (dateField.value.trim() === '') {
     // Mettre à jour le tspan207-7-6 avec les 4 premiers caractères de la marque
     document.getElementById('tspan207-7-6').textContent = marqueInput.substring(0, 4);
 
-
-
-    // Mettre à jour le tspan207-4-1 en fonction de la famille sélectionnée
-    updateTspan207_4_1();
-}
 
 function updateTspan207_4_1() {
             var familleSelectionnee = document.getElementById('familyDropdown').value;
@@ -4432,6 +4440,21 @@ function updateTspan207_4_1() {
             // Mettre à jour tspan207-4-1 avec la valeur correspondante
             document.getElementById('tspan207-4-1').textContent = tspan207_4_1Value;
                
+}
+
+   // Mettre à jour tspan207-0-4 et tspan207-0-4-4 (TVA) si la famille est "lubrifiants"
+   if (document.getElementById('familyDropdown').value === 'LUBRIFIANTS') {
+        document.getElementById('tspan207-0-4').textContent = '13';
+        document.getElementById('tspan207-0-4-4').textContent = '13';
+    } else {
+        // Mettre à jour avec les valeurs par défaut si la famille n'est pas "lubrifiants"
+        // Assurez-vous de mettre à jour ces valeurs avec celles par défaut
+        document.getElementById('tspan207-0-4').textContent = '20';
+        document.getElementById('tspan207-0-4-4').textContent = '20';
+    }
+
+    // Mettre à jour le tspan207-4-1 en fonction de la famille sélectionnée
+    updateTspan207_4_1();
 }
 
 // Mettre à jour le tspan207-4-1-0 en fonction de la sous famille sélectionnée
@@ -4882,6 +4905,9 @@ function updateTspan207_4_1_0() {
         document.getElementById('subfamilyDropdown').addEventListener('change', function() {
     updateTspan207_4_1_0();
 });
+
+
+
 
 // Fonction pour télécharger en PNG
 function downloadPNG() {
